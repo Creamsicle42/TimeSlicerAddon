@@ -14,6 +14,10 @@ config/name="Time Slicer Addon"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+TimeSlicer="*res://addons/timeslicer/time_slicer.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/timeslicer/plugin.cfg")
