@@ -25,14 +25,17 @@ layout_mode = 2
 
 [node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Saves the current configuration to disk."
 text = "Save"
 
 [node name="RevertButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Reverts the editor to the last saved state."
 text = "Revert"
 
 [node name="AddSliceComponentButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+tooltip_text = "Adds a blank time slice."
 text = "Add Slice"
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]

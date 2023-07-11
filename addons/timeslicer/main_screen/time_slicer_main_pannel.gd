@@ -8,14 +8,14 @@ const TIME_SLICE_COMPONENT := preload("res://addons/timeslicer/main_screen/time_
 @onready var time_slice_component_container: VBoxContainer = %TimeSliceComponentContainer
 
 
+## Clears the container of all components
 func clear_container() -> void:
 	for i in time_slice_component_container.get_children():
 		i.queue_free()
 
 
+## Loads the timeslice data from disk and uses it to build editor interface
 func build_container() -> void:
-	print_debug("Building slice editor pannel 4")
-	
 	# Destroy all existing components
 	clear_container()
 	
@@ -29,11 +29,18 @@ func build_container() -> void:
 		var calls :int= config_file.get_value(i, "calls_per_tick", 1)
 		var update_type :int= config_file.get_value(i, "tick_type", 0)
 		slice_component.call_deferred("set_state", i, calls, update_type)
-		
+
+
+## Creates a timeslice visual component and adds it to the screen
+## Returns the created component
+func create_timeslice_component() -> TimeSliceComponent:
+	var slice_component :TimeSliceComponent= TIME_SLICE_COMPONENT.instantiate()
+	time_slice_component_container.add_child(slice_component)
+	return slice_component
 
 
 
-## Save the config file
+## Collect data from visual components and saves it to disk
 func _on_save_button_pressed() -> void:
 	# Create new config
 	var new_config :ConfigFile= ConfigFile.new()
@@ -70,16 +77,11 @@ func _on_save_button_pressed() -> void:
 		push_error(error)
 
 
-func create_timeslice_component() -> TimeSliceComponent:
-	var slice_component :TimeSliceComponent= TIME_SLICE_COMPONENT.instantiate()
-	time_slice_component_container.add_child(slice_component)
-	return slice_component
-
-
-
+## Adds a blank timeslice component to the pannel
 func _on_add_slice_component_button_pressed() -> void:
 	create_timeslice_component()
 
 
+## Reverts the component pannel to it's last state
 func _on_revert_button_pressed() -> void:
 	build_container()
