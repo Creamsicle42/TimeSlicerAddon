@@ -54,11 +54,15 @@ func _create_time_slice_thread(thread_name: String, thread_type: ThreadType, cal
 
 
 func _physics_tick_threads() -> void:
-	pass
+	for i in _time_slice_threads:
+		var thread :TimeSliceThread = _time_slice_threads[i]
+		if thread.is_update_type(ThreadType.PHYSICS_PROCESS): thread.preform_update()
 
 
 func _process_tick_methods() -> void:
-	pass
+	for i in _time_slice_threads:
+		var thread :TimeSliceThread = _time_slice_threads[i]
+		if thread.is_update_type(ThreadType.PROCESS): thread.preform_update()
 
 
 
