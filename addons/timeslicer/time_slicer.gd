@@ -21,15 +21,22 @@ var _time_slice_threads := {}
 # PUBLIC METHODS
 
 ## Adds a method to a give thread.
-## Returns true if succesful and false if the thread does not exist or if the method is incompatable.
+## Returns true if succesful and false if the thread does not exist.
 func subscribe_method_to_thread(thread_name: String, method: Callable) -> bool:
+	if not _time_slice_threads.has(thread_name): 
+		push_error("Time Slice Thread \"%s\" does not exist." % thread_name)
+		return false
+	(_time_slice_threads[thread_name] as TimeSliceThread).subscribe_method(method)
 	return true
 
 
 ## Removes a method from a given thread.
 ## Returns true if succesful and false if the thread doesn't exist, or if the given thread does not contain the given method.
 func unsubscrie_method_from_thread(thread_name: String, method: Callable) -> bool:
-	return true
+	if not _time_slice_threads.has(thread_name): 
+		push_error("Time Slice Thread \"%s\" does not exist." % thread_name)
+		return false
+	return (_time_slice_threads[thread_name] as TimeSliceThread).unsubscribe_method(method)
 
 
 # PRIVATE METHODS
