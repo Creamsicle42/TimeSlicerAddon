@@ -34,8 +34,18 @@ func unsubscrie_method_from_thread(thread_name: String, method: Callable) -> boo
 
 # PRIVATE METHODS
 
-func _create_time_slice_threads() -> void:
-	pass
+func _build_time_slice_threads() -> void:
+	# Get the time slice data
+	var thread_config :ConfigFile= TimesliceDataReader.get_timeslice_data_file()
+	
+	# Get name of all slices from data
+	var thread_names = thread_config.get_value("meta", "time_slices", [])
+	
+	# Build thread for each name
+	for i in thread_names:
+		var calls :int= thread_config.get_value(i, "calls_per_tick", 1)
+		var update_type :int= thread_config.get_value(i, "tick_type", 0)
+		_create_time_slice_thread(i, update_type, calls)
 
 
 ## Creates a time slice thread, this function is run on program startup
