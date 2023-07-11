@@ -32,3 +32,47 @@ func build_container() -> void:
 		time_slice_component_container.add_child(slice_component)
 
 
+
+## Save the config file
+func _on_save_button_pressed() -> void:
+	# Create new config
+	var new_config :ConfigFile= ConfigFile.new()
+	
+	# Get the data from all config elements
+	var config_data := []
+	for i in time_slice_component_container.get_children():
+		if not i is TimeSliceComponent: continue
+		config_data.append((i as TimeSliceComponent).get_state())
+	
+	# Build body of config file
+	var slice_names := []
+	for i in config_data:
+		# Extract data
+		var name :String= i.name
+		var calls :int= i.calls
+		var type :int= i.type
+		
+		# Add name to name list
+		slice_names.append(name)
+		
+		# Add data to config
+		new_config.set_value(name, "calls_per_tick", calls)
+		new_config.set_value(name, "tick_type", type)
+	
+	# Add name list to config file
+	new_config.set_value("meta", "time_slices", slice_names)
+	
+	# Save config
+	var error := TimesliceDataReader.save_timeslice_data_file(new_config)
+	
+	# Print error if any occoured
+	if error != OK:
+		push_error(error)
+
+
+
+
+
+
+
+

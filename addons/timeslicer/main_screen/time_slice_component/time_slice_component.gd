@@ -12,15 +12,15 @@ class_name TimeSliceComponent extends PanelContainer
 
 ## Sets the visual state of the component
 func set_state(slice_name: String, calls: int, type: int) -> void:
-	slice_name_editor.text = slice_name
-	calls_per_update.value = calls
-	update_type.select(type)
+	%SliceNameEditor.text = slice_name
+	%CallsPerUpdate.value = calls
+	%UpdateType.select(type)
 
 
 ## Gets the visual state of the component
 func get_state() -> Dictionary:
 	return {
-		"name": slice_name_editor.text,
-		"calls": calls_per_update.value,
-		"type": update_type.selected
+		"name": %SliceNameEditor.text,
+		"calls": %CallsPerUpdate.value,
+		"type": %UpdateType.selected
 	}

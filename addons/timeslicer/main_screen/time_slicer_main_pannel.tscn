@@ -20,7 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="SaveButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Save"
 
@@ -31,3 +31,5 @@ size_flags_vertical = 3
 [node name="TimeSliceComponentContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
