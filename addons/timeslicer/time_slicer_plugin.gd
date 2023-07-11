@@ -32,6 +32,8 @@ func _has_main_screen() -> bool:
 func _make_visible(visible: bool) -> void:
 	if main_pannel_instance:
 		main_pannel_instance.visible = visible
+		if visible:
+			main_pannel_instance.build_container()
 
 
 func _get_plugin_name() -> String:

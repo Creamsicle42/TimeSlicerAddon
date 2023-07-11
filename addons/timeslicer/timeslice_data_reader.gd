@@ -1,3 +1,4 @@
+@tool
 class_name TimesliceDataReader
 
 ## Acts as a helper class for saving and loading of the timeslice config
