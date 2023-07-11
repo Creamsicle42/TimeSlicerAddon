@@ -25,11 +25,11 @@ func build_container() -> void:
 	# Build config screen
 	var slice_ids :Array= (config_file.get_value("meta", "time_slices", []) as Array[String]) 
 	for i in slice_ids:
-		var slice_component :TimeSliceComponent= TIME_SLICE_COMPONENT.instantiate()
-		var calls = config_file.get_value(i, "calls_per_tick", 1)
-		var update_type = config_file.get_value(i, "tick_type", 0)
-		slice_component.set_state(i, calls, update_type)
-		time_slice_component_container.add_child(slice_component)
+		var slice_component :TimeSliceComponent= create_timeslice_component()
+		var calls :int= config_file.get_value(i, "calls_per_tick", 1)
+		var update_type :int= config_file.get_value(i, "tick_type", 0)
+		slice_component.call_deferred("set_state", i, calls, update_type)
+		
 
 
 
@@ -70,7 +70,10 @@ func _on_save_button_pressed() -> void:
 		push_error(error)
 
 
-
+func create_timeslice_component() -> TimeSliceComponent:
+	var slice_component :TimeSliceComponent= TIME_SLICE_COMPONENT.instantiate()
+	time_slice_component_container.add_child(slice_component)
+	return slice_component
 
 
 
