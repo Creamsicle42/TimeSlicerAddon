@@ -24,3 +24,7 @@ func get_state() -> Dictionary:
 		"calls": calls_per_update.value,
 		"type": update_type.selected
 	}
+
+
+func _on_remove_component_button_pressed() -> void:
+	queue_free()
