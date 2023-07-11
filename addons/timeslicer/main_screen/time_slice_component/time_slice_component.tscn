@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://bixheynj54fjj"]
+
+[ext_resource type="Script" path="res://addons/timeslicer/main_screen/time_slice_component/time_slice_component.gd" id="1_x0dnp"]
+
+[node name="TimeSliceComponent" type="PanelContainer"]
+custom_minimum_size = Vector2(400, 32)
+script = ExtResource("1_x0dnp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RemoveComponentButton" type="Button" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "X"
+flat = true
+
+[node name="SliceNameLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Slice Name:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SliceNameEditor" type="LineEdit" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "slice_name"
+expand_to_text_length = true
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="CallsPerUpdateLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Calls Per Update"
+vertical_alignment = 1
+
+[node name="CallsPerUpdate" type="SpinBox" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="UpdateTypeLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Update Type:"
+
+[node name="UpdateType" type="OptionButton" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "process"
+popup/item_0/id = 0
+popup/item_1/text = "physics_process"
+popup/item_1/id = 1
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/RemoveComponentButton" to="." method="_on_remove_component_button_pressed"]
