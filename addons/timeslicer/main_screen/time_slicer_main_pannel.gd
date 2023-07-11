@@ -79,3 +79,7 @@ func create_timeslice_component() -> TimeSliceComponent:
 
 func _on_add_slice_component_button_pressed() -> void:
 	create_timeslice_component()
+
+
+func _on_revert_button_pressed() -> void:
+	build_container()

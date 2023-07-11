@@ -11,6 +11,7 @@ func _enter_tree() -> void:
 	main_pannel_instance = MAIN_PANNEL.instantiate()
 	get_editor_interface().get_editor_main_screen().add_child(main_pannel_instance)
 	_make_visible(false)
+	main_pannel_instance.call_deferred("build_container")
 	
 	# Add autoloads
 	add_autoload_singleton(TIME_SLICER_AUTOLOAD_NAME, "res://addons/timeslicer/time_slicer.gd")
@@ -32,8 +33,6 @@ func _has_main_screen() -> bool:
 func _make_visible(visible: bool) -> void:
 	if main_pannel_instance:
 		main_pannel_instance.visible = visible
-		if visible:
-			main_pannel_instance.build_container()
 
 
 func _get_plugin_name() -> String:
