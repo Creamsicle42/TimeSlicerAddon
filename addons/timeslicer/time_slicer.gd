@@ -50,7 +50,7 @@ func _build_time_slice_threads() -> void:
 
 ## Creates a time slice thread, this function is run on program startup
 func _create_time_slice_thread(thread_name: String, thread_type: ThreadType, calls_per_update: int) -> void:
-	pass
+	_time_slice_threads[thread_name] = TimeSliceThread.new(calls_per_update, thread_type)
 
 
 func _physics_tick_threads() -> void:
