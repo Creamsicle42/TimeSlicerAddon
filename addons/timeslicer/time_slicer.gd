@@ -18,6 +18,20 @@ enum ThreadType {
 var _time_slice_threads := {}
 
 
+# OVERRIDE METHODS
+
+func _ready() -> void:
+	_build_time_slice_threads()
+
+
+func _physics_process(delta: float) -> void:
+	_physics_tick_threads()
+
+
+func _process(delta: float) -> void:
+	_process_tick_threads()
+
+
 # PUBLIC METHODS
 
 ## Adds a method to a give thread.
@@ -66,7 +80,7 @@ func _physics_tick_threads() -> void:
 		if thread.is_update_type(ThreadType.PHYSICS_PROCESS): thread.preform_update()
 
 
-func _process_tick_methods() -> void:
+func _process_tick_threads() -> void:
 	for i in _time_slice_threads:
 		var thread :TimeSliceThread = _time_slice_threads[i]
 		if thread.is_update_type(ThreadType.PROCESS): thread.preform_update()
