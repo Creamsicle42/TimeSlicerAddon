@@ -92,6 +92,7 @@ class TimeSliceThread:
 	var _calls_per_update: int
 	var _update_type: ThreadType
 	var _methods : Array[Callable]
+	var _last_updated_index := 0
 	
 	func _init(calls_per_update: int, update_type: ThreadType) -> void:
 		_calls_per_update = calls_per_update
@@ -104,7 +105,14 @@ class TimeSliceThread:
 	
 	
 	func preform_update() -> void:
-		pass
+		# Done to ensure no method is called twice on a single update
+		var num_calls = min(_methods.size(), _calls_per_update)
+		
+		for i in num_calls:
+			if _last_updated_index >= _methods.size(): _last_updated_index = 0
+			var method = _methods[_last_updated_index]
+			if method.is_valid(): method.call()
+			_last_updated_index += 1
 	
 	
 	func subscribe_method(method: Callable) -> void:
