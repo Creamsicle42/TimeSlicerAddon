@@ -77,5 +77,5 @@ func create_timeslice_component() -> TimeSliceComponent:
 
 
 
-
-
+func _on_add_slice_component_button_pressed() -> void:
+	create_timeslice_component()
