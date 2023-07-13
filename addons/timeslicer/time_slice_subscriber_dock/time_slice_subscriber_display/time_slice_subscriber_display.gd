@@ -14,12 +14,13 @@ var method:String
 
 
 func _render(slice: String, method:String) -> void:
+	print_debug("Setting display to %s: %s" % [slice, method])
 	self.slice = slice
-	self.slice = method
+	self.method = method
 	
-	slice_name.text = "Slice Name: %s" % slice
-	method_name.text = "Method Name: %s" % method
+	slice_name.text = "Slice Name: %s" % self.slice
+	method_name.text = "Method Name: %s" % self.method
 
 
 func _on_delete_button_pressed() -> void:
-	delete_slice.emit(slice, method)
+	delete_slice.emit(self.slice, self.method)

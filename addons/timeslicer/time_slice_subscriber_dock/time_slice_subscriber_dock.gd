@@ -33,7 +33,7 @@ func build_subscription_panel() -> void:
 	
 	var node_data = selected_node.get_meta("time_slice_data", {})
 	
-	for slice in node_data:
+	for slice in node_data.keys():
 		for method in node_data[slice]:
 			var sub:TimeSliceSubscriberDisplay = TIME_SLICE_DISPLAY.instantiate()
 			time_slice_subscription_panel.add_child(sub)
@@ -42,7 +42,21 @@ func build_subscription_panel() -> void:
 
 
 func remove_subscription(slice: String, method: String) -> void:
-	pass
+	
+	if selected_node == null: return
+	# Get slice data
+	var node_metadata:Dictionary = selected_node.get_meta("time_slice_data", {})
+	var slice_data = []
+	if node_metadata.has(slice):
+		slice_data = node_metadata[slice]
+	
+	# Update data
+	slice_data.erase(method)
+	node_metadata[slice] = slice_data
+	selected_node.set_meta("time_slice_data", node_metadata)
+	
+	# Update view
+	update_pannel_visuals()
 
 
 func update_pannel_visuals() -> void:
@@ -89,3 +103,6 @@ func _on_subscribe_time_slice_button_pressed() -> void:
 	# Add node metadata and group if needed
 	selected_node.set_meta("time_slice_data", node_metadata)
 	if not selected_node.is_in_group("time_slice_subscribed"): selected_node.add_to_group("time_slice_subscribed")
+	
+	# Update view
+	update_pannel_visuals()
