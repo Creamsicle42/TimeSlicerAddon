@@ -2,6 +2,9 @@
 class_name TimeSliceSubscriberDock extends Control
 
 
+const TIME_SLICE_DISPLAY = preload("res://addons/timeslicer/time_slice_subscriber_dock/time_slice_subscriber_display/time_slice_subscriber_display.tscn")
+
+
 @onready var method_name_field: LineEdit = %MethodNameField
 @onready var time_slice_name_field: LineEdit = %TimeSliceNameField
 @onready var subscribe_time_slice_button: Button = $VBoxContainer/SubscribeTimeSliceButton

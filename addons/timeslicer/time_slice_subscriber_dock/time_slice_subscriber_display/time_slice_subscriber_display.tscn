@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://c76io2wcy135t"]
+
+[ext_resource type="Script" path="res://addons/timeslicer/time_slice_subscriber_dock/time_slice_subscriber_display/time_slice_subscriber_display.gd" id="1_ar1ad"]
+
+[node name="TimeSliceSubscriberDisplay" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ar1ad")
+
+[node name="SliceData" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SliceName" type="Label" parent="SliceData"]
+layout_mode = 2
+text = "Slice Name: "
+
+[node name="MethodName" type="Label" parent="SliceData"]
+layout_mode = 2
+text = "Method Name:"
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+text = "X"
+flat = true
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]
