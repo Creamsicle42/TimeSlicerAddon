@@ -1,12 +1,16 @@
 @tool
 extends EditorPlugin
 
+
 const MAIN_PANNEL = preload("res://addons/timeslicer/main_screen/time_slicer_main_pannel.tscn")
 const DOCK = preload("res://addons/timeslicer/time_slice_subscriber_dock/time_slice_subscriber_dock.tscn")
 const TIME_SLICER_AUTOLOAD_NAME = "TimeSlicer"
 
+
+var editor_selection : EditorSelection
 var main_pannel_instance : TimeSlicerMainPannel
 var dock_instance : TimeSliceSubscriberDock
+
 
 func _enter_tree() -> void:
 	# Instantiate main pannel
@@ -21,6 +25,12 @@ func _enter_tree() -> void:
 	
 	# Add autoloads
 	add_autoload_singleton(TIME_SLICER_AUTOLOAD_NAME, "res://addons/timeslicer/time_slicer.gd")
+	
+	# Setup Editor Selection
+	editor_selection = get_editor_interface().get_selection()
+	editor_selection.selection_changed.connect(
+		dock_instance._on_editor_selection_changed.bind(editor_selection)
+	)
 
 
 func _exit_tree() -> void:

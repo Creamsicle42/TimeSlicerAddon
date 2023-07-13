@@ -27,6 +27,7 @@ layout_mode = 2
 text = "Method Name"
 
 [node name="MethodNameField" type="LineEdit" parent="VBoxContainer/MethodName"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "method_name"
@@ -39,6 +40,7 @@ layout_mode = 2
 text = "Method Name"
 
 [node name="TimeSliceNameField" type="LineEdit" parent="VBoxContainer/TimeSliceName"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "time_slice_name"
@@ -46,3 +48,5 @@ placeholder_text = "time_slice_name"
 [node name="SubscribeTimeSliceButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Subscribe"
+
+[connection signal="pressed" from="VBoxContainer/SubscribeTimeSliceButton" to="." method="_on_subscribe_time_slice_button_pressed"]
