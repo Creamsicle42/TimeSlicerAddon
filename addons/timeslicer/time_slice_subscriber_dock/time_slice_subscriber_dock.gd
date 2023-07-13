@@ -5,9 +5,11 @@ class_name TimeSliceSubscriberDock extends Control
 const TIME_SLICE_DISPLAY = preload("res://addons/timeslicer/time_slice_subscriber_dock/time_slice_subscriber_display/time_slice_subscriber_display.tscn")
 
 
+
 @onready var method_name_field: LineEdit = %MethodNameField
 @onready var time_slice_name_field: LineEdit = %TimeSliceNameField
 @onready var subscribe_time_slice_button: Button = $VBoxContainer/SubscribeTimeSliceButton
+@onready var time_slice_subscription_panel: VBoxContainer = $VBoxContainer/PanelContainer/TimeSliceSubscriptionPanel
 
 
 var selected_node : Node
@@ -21,7 +23,30 @@ func _on_editor_selection_changed(new_selection: EditorSelection) -> void:
 	update_pannel_visuals()
 
 
+func clear_subscription_panel() -> void:
+	for i in time_slice_subscription_panel.get_children():
+		i.queue_free()
+
+
+func build_subscription_panel() -> void:
+	if selected_node == null: return
+	
+	var node_data = selected_node.get_meta("time_slice_data", {})
+	
+	for slice in node_data:
+		for method in node_data[slice]:
+			var sub:TimeSliceSubscriberDisplay = TIME_SLICE_DISPLAY.instantiate()
+			time_slice_subscription_panel.add_child(sub)
+			sub.call_deferred("_render", slice, method)
+			sub.delete_slice.connect(remove_subscription)
+
+
+func remove_subscription(slice: String, method: String) -> void:
+	pass
+
+
 func update_pannel_visuals() -> void:
+	clear_subscription_panel()
 	if selected_node == null:
 		method_name_field.editable = false
 		time_slice_name_field.editable = false
@@ -30,7 +55,7 @@ func update_pannel_visuals() -> void:
 		method_name_field.editable = true
 		time_slice_name_field.editable = true
 		subscribe_time_slice_button.disabled = false
-		print_debug(selected_node.get_meta("time_slice_data", {}))
+		build_subscription_panel()
 
 
 func _on_subscribe_time_slice_button_pressed() -> void:

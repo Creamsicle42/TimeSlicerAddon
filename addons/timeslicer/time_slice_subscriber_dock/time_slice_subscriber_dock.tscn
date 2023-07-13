@@ -53,4 +53,10 @@ placeholder_text = "time_slice_name"
 layout_mode = 2
 text = "Subscribe"
 
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSliceSubscriptionPanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
 [connection signal="pressed" from="VBoxContainer/SubscribeTimeSliceButton" to="." method="_on_subscribe_time_slice_button_pressed"]
