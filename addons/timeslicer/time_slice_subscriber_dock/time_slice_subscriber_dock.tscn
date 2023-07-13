@@ -18,9 +18,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/time_slice_data = {
-"slice": ["method"]
-}
 
 [node name="MethodName" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

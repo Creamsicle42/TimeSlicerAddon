@@ -24,6 +24,8 @@ func _on_editor_selection_changed(new_selection: EditorSelection) -> void:
 
 
 func clear_subscription_panel() -> void:
+	method_name_field.text = ""
+	time_slice_name_field.text = "" 
 	for i in time_slice_subscription_panel.get_children():
 		i.queue_free()
 
