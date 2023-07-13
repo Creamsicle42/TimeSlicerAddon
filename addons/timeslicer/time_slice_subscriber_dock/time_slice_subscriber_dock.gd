@@ -102,7 +102,6 @@ func _on_subscribe_time_slice_button_pressed() -> void:
 	
 	# Add node metadata and group if needed
 	selected_node.set_meta("time_slice_data", node_metadata)
-	if not selected_node.is_in_group("time_slice_subscribed"): selected_node.add_to_group("time_slice_subscribed")
 	
 	# Update view
 	update_pannel_visuals()

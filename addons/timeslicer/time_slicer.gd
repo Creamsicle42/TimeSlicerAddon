@@ -22,6 +22,8 @@ var _time_slice_threads := {}
 
 func _ready() -> void:
 	_build_time_slice_threads()
+	get_tree().node_added.connect(_on_node_enter_tree)
+	get_tree().node_removed.connect(_on_node_exit_tree)
 
 
 func _physics_process(delta: float) -> void:
@@ -86,6 +88,44 @@ func _process_tick_threads() -> void:
 		if thread.is_update_type(ThreadType.PROCESS): thread.preform_update()
 
 
+func _node_has_time_slice_metadata(node: Node) -> bool:
+	if node.has_meta("time_slice_data"): return true
+	return false
+
+
+func _subscribe_node_metadata(node: Node) -> void:
+	var node_data = node.get_meta("time_slice_data", {})
+	
+	for slice_name in node_data.keys():
+		for method_name in node_data[slice_name]:
+			var method:Callable = node.get(method_name)
+			if not method.is_valid():
+				push_error("Node %s does not have method %s" % [node.name, method_name])
+				return
+			subscribe_method_to_thread(slice_name, method)
+
+
+func _unsubscribe_node_metadata(node: Node) -> void:
+	var node_data = node.get_meta("time_slice_data", {})
+	
+	for slice_name in node_data.keys():
+		for method_name in node_data[slice_name]:
+			var method:Callable = node.get(method_name)
+			if not method.is_valid():
+				push_error("Node %s does not have method %s" % [node.name, method_name])
+				return
+			unsubscrie_method_from_thread(slice_name, method)
+
+
+func _on_node_enter_tree(node: Node) -> void:
+	if not _node_has_time_slice_metadata(node): return
+	_subscribe_node_metadata(node)
+
+
+func _on_node_exit_tree(node: Node) -> void:
+	if not _node_has_time_slice_metadata(node): return
+	_unsubscribe_node_metadata(node)
+
 
 class TimeSliceThread:
 	
@@ -123,3 +163,4 @@ class TimeSliceThread:
 		if not _methods.has(method): return false
 		_methods.erase(method)
 		return true
+
