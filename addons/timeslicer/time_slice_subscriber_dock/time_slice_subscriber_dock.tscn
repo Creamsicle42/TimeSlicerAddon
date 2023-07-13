@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://1afvveoa0rau"]
+
+[ext_resource type="Script" path="res://addons/timeslicer/time_slice_subscriber_dock/time_slice_subscriber_dock.gd" id="1_qpay5"]
+
+[node name="TimeSliceSubscriber" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qpay5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MethodName" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MethodNameLabel" type="Label" parent="VBoxContainer/MethodName"]
+layout_mode = 2
+text = "Method Name"
+metadata/time_slice_data = {}
+
+[node name="MethodNameField" type="LineEdit" parent="VBoxContainer/MethodName"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "method_name"
+
+[node name="TimeSliceName" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSliceNameLabel" type="Label" parent="VBoxContainer/TimeSliceName"]
+layout_mode = 2
+text = "Slice Name"
+metadata/time_slice_data = {
+"slice": []
+}
+
+[node name="TimeSliceNameField" type="LineEdit" parent="VBoxContainer/TimeSliceName"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "time_slice_name"
+
+[node name="SubscribeTimeSliceButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Subscribe"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TimeSliceSubscriptionPanel" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/SubscribeTimeSliceButton" to="." method="_on_subscribe_time_slice_button_pressed"]

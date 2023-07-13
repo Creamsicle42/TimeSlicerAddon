@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://cplhijgejqynr"]
+
+[ext_resource type="Script" path="res://addons/timeslicer/main_screen/time_slicer_main_pannel.gd" id="1_h0v6b"]
+
+[node name="TimeSlicerMainPannel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_h0v6b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Saves the current configuration to disk."
+text = "Save"
+
+[node name="RevertButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Reverts the editor to the last saved state."
+text = "Revert"
+
+[node name="AddSliceComponentButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Adds a blank time slice."
+text = "Add Slice"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TimeSliceComponentContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/AddSliceComponentButton" to="." method="_on_add_slice_component_button_pressed"]
